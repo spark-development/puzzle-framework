@@ -18,6 +18,9 @@
     "import/no-dynamic-require": 0,
     "strict": [0, "global"]
   },
+  "globals": {
+    "puzzle": true
+  },
   "env": {
     "node": true,
     "mocha": true,
