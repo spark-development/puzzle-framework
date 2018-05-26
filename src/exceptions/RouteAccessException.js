@@ -1,6 +1,6 @@
 "use strict";
 
-const PError = require("./PError");
+const PError = puzzle.import("exceptions/PError");
 
 /**
  * Exception for when there is no access to the given route.

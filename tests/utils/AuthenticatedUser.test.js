@@ -3,13 +3,13 @@
 const expect = require("chai").expect;
 
 const AuthenticatedUser = require("../../src/utils/AuthenticatedUser");
-const User = require("../../src/models/User");
+const PObject = require("puzzle-framework-lite/src/core/PObject");
 
-const engine = require("../_toolkit/engine");
+class User extends PObject {}
 
 describe("AuthenticatedUser class check", () => {
   it("className should be User", () => {
-    const user = new User(engine);
+    const user = new User();
     expect(user.className).to.be.a("string");
     expect(user.className).to.equal("User");
   });
@@ -23,7 +23,7 @@ describe("AuthenticatedUser class check", () => {
     expect(AuthenticatedUser({})).to.be.false;
   });
   it("User should pass", () => {
-    const user = new User(engine);
+    const user = new User();
     expect(AuthenticatedUser(user)).to.be.true;
   });
 });

@@ -1,6 +1,6 @@
 "use strict";
 
-const PError = require("./PError");
+const PError = puzzle.import("exceptions/PError");
 
 /**
  * Exception for when the model already exists in the db.
