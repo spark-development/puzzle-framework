@@ -30,7 +30,7 @@ class API extends Route {
    * Attaches the route path to the api path.
    */
   build() {
-    this.path = `${this.APIPath}/${this.path}`;
+    this.path = `${this.APIPath}/${this.path}`.replace(/[/]+/g, "/");
 
     super.build();
   }
