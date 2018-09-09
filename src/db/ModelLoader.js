@@ -67,9 +67,9 @@ class ModelLoader extends PObject {
    * @return {model.Model | null}
    */
   get(entity) {
-    return this._models[entity] ?
-      this._models[entity].model :
-      null;
+    return this._models[entity]
+      ? this._models[entity].model
+      : null;
   }
 }
 

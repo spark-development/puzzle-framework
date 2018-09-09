@@ -33,7 +33,6 @@ class Migrations extends CLIBase {
 
     const sequelize = puzzle.db;
     const that = this;
-
     /**
      * The Umzug reference.
      *
@@ -53,15 +52,14 @@ class Migrations extends CLIBase {
           sequelize.getQueryInterface(), // queryInterface
           sequelize.constructor, // DataTypes
         ],
-        path: path.resolve(this.engine.config.db.migrationsPath),
+        path: path.resolve(puzzle.config.db.migrationsPath),
         pattern: /\.js$/
       },
 
       logging: function loggingSequelize(...args) {
-        that.log.debug(...args);
+        that.put.debug(...args);
       },
     });
-
     this._umzug.on("migrating", this._umzugEvent("migrating"));
     this._umzug.on("migrated", this._umzugEvent("migrated"));
     this._umzug.on("reverting", this._umzugEvent("reverting"));
@@ -74,7 +72,7 @@ class Migrations extends CLIBase {
    * @param {string[]} args The command line arguments
    * @param {Object} options The options given to the command.
    */
-  run(args, options) {
+  async run(args, options) {
     if (args.length === 0) {
       this.put.fatal("No command given");
       return;
@@ -86,18 +84,16 @@ class Migrations extends CLIBase {
       return;
     }
 
-    runtime.apply(this)
-      .then((result) => {
-        this.put.ok(`${args[0].toUpperCase()} DONE`);
-      })
-      .catch((err) => {
-        this.put.error(`${args[0].toUpperCase()} ERROR`);
-        if (err !== null && err !== undefined) {
-          this.putU.error(err);
-        }
-        this.done(1);
-      })
-      .then(() => this.done());
+    try {
+      await runtime.apply(this);
+      this.put.ok(`${args[0].toUpperCase()} DONE`);
+    } catch (err) {
+      this.put.error(`${args[0].toUpperCase()} ERROR`);
+      if (err !== null && err !== undefined) {
+        this.putU.error(err);
+      }
+      this.done(1);
+    }
   }
 
   /**
