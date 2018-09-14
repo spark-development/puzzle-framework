@@ -18,8 +18,7 @@ class Seeds extends CLIBase {
    * @param {engine} engine The engine reference.
    */
   constructor(engine) {
-    super(engine, "db:seed");
-
+    super(engine, "db:seeds");
     /**
      * Path to the seeds folder.
      *
@@ -123,29 +122,33 @@ class Seeds extends CLIBase {
    * @param {boolean} forceCreation Force the file saving.
    */
   generate(filesToRun, forceCreation) {
-    const entityName = filesToRun.pop();
-    const seedFile = path.join(this.seedsFolder, `${entityName}.json`);
-    this.put.info(`Generating seed for entity: ${entityName}`);
+    const entityNames = filesToRun.pop().split(",");
 
-    if (fs.existsSync(seedFile) && !forceCreation) {
-      this.put.error("Unable to generate the seed! The file already exists.");
-      return;
-    }
+    entityNames.forEach((entityName) => {
+      entityName = entityName.trim();
+      const seedFile = path.join(this.seedsFolder, `${entityName}.json`);
+      this.put.info(`Generating seed for entity: ${entityName}`);
 
-    const model = puzzle.models.get(entityName);
-    if (!this.isValid(model)) {
-      this.put.error("The entity that you want to use doesn't exists!");
-      return;
-    }
+      if (fs.existsSync(seedFile) && !forceCreation) {
+        this.put.error("Unable to generate the seed! The file already exists.");
+        return;
+      }
 
-    const attributes = Object.keys(model.rawAttributes);
-    const seed = {};
-    attributes.forEach((key) => {
-      seed[key] = "";
+      const model = puzzle.models.get(entityName);
+      if (!this.isValid(model)) {
+        this.put.error("The entity that you want to use doesn't exists!");
+        return;
+      }
+
+      const attributes = Object.keys(model.rawAttributes);
+      const seed = {};
+      attributes.forEach((key) => {
+        seed[key] = "";
+      });
+
+      fs.writeFileSync(seedFile, JSON.stringify([seed], null, 2));
+      this.put.ok("Generation done");
     });
-
-    fs.writeFileSync(seedFile, JSON.stringify([seed], null, 2));
-    this.put.ok("Generation done");
   }
 }
 
