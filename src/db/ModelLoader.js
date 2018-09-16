@@ -14,7 +14,7 @@ class ModelLoader extends PObject {
     /**
      * A list with all the models available in the application.
      *
-     * @member {Array<string,models.Model>}
+     * @property {Array<string,models.Model>}
      * @private
      */
     this._models = {};

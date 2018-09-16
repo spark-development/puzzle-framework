@@ -23,7 +23,7 @@ class Model extends PObject {
     /**
      * The name of the entity.
      *
-     * @member {string}
+     * @property {string}
      */
     this.entity = entity;
 
@@ -31,7 +31,7 @@ class Model extends PObject {
      * The model class returned by the storage engine.
      *
      * @protected
-     * @member {Object}
+     * @property {Object}
      */
     this._model = null;
 

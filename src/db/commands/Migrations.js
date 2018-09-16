@@ -21,7 +21,7 @@ class Migrations extends CLIBase {
     /**
      * What this command should perform.
      *
-     * @member {Object}
+     * @property {Object}
      * @protected
      */
     this._runtimes = {
@@ -36,7 +36,7 @@ class Migrations extends CLIBase {
     /**
      * The Umzug reference.
      *
-     * @member {umzug}
+     * @property {umzug}
      * @protected
      */
     this._umzug = new umzug({

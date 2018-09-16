@@ -22,7 +22,7 @@ class Seeds extends CLIBase {
     /**
      * Path to the seeds folder.
      *
-     * @member {string}
+     * @property {string}
      * @protected
      */
     this.seedsFolder = path.resolve(puzzle.config.db.seedsPath);
