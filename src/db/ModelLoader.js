@@ -14,7 +14,7 @@ class ModelLoader extends PObject {
     /**
      * A list with all the models available in the application.
      *
-     * @member {Array<string,models.Model>}
+     * @property {Array<string,models.Model>}
      * @private
      */
     this._models = {};
@@ -67,9 +67,9 @@ class ModelLoader extends PObject {
    * @return {model.Model | null}
    */
   get(entity) {
-    return this._models[entity] ?
-      this._models[entity].model :
-      null;
+    return this._models[entity]
+      ? this._models[entity].model
+      : null;
   }
 }
 

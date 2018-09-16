@@ -21,7 +21,7 @@ class API extends Route {
     /**
      * Stores the base of the API Path.
      *
-     * @member {string}
+     * @property {string}
      */
     this.APIPath = puzzle.config.http.APIPath || "/api/master";
   }
@@ -30,7 +30,7 @@ class API extends Route {
    * Attaches the route path to the api path.
    */
   build() {
-    this.path = `${this.APIPath}/${this.path}`;
+    this.path = `${this.APIPath}/${this.path}`.replace(/[/]+/g, "/");
 
     super.build();
   }

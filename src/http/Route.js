@@ -26,7 +26,7 @@ class Route extends PRoute {
     /**
      * Where to redirect unauthenticated users.
      *
-     * @member {string}
+     * @property {string}
      */
     this.unauthenticatedRedirectTo = "/";
   }

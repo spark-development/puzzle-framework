@@ -16,7 +16,10 @@
     "no-underscore-dangle": 0,
     "class-methods-use-this": 0,
     "import/no-dynamic-require": 0,
-    "strict": [0, "global"]
+    "strict": [0, "global"],
+    "no-restricted-syntax": [2, "LabeledStatement", "WithStatement"],
+    "no-continue": 0,
+    "no-await-in-loop": 0
   },
   "globals": {
     "puzzle": true

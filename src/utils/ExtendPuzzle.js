@@ -37,7 +37,8 @@ class ExtendPuzzle extends PEngine {
    */
   import(moduleName, fromSuper) {
     if ((!this.isValid(fromSuper) || !fromSuper)
-      && fs.existsSync(path.resolve(`${__dirname}/../${moduleName}.js`))) {
+      && (fs.existsSync(path.resolve(`${__dirname}/../${moduleName}.js`))
+        || fs.existsSync(path.resolve(`${__dirname}/../${moduleName}/index.js`)))) {
       return require(`${__dirname}/../${moduleName}`);
     }
 

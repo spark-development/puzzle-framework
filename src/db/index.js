@@ -19,13 +19,23 @@ const ModelLoader = require("./ModelLoader");
  */
 class DBModule extends PUse {
   /**
-   * Returns an instance of Sequelize
+   * Returns the default instance of Sequelize
    *
    * @return {Sequelize}
    */
   static get db() {
-    const dbConfig = puzzle.config.db[puzzle.env];
+    return DBModule.getDBConnection(puzzle.env);
+  }
 
+  /**
+   * Returns a new instance of Sequelize for the given environment.
+   *
+   * @param {string} env The environment for which we want the database connection.
+   *
+   * @return {Sequelize}
+   */
+  static getDBConnection(env) {
+    const dbConfig = puzzle.config.db[env];
     return new Sequelize(dbConfig.database, dbConfig.user, dbConfig.password, {
       host: dbConfig.host,
       port: dbConfig.port,
