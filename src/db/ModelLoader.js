@@ -60,6 +60,15 @@ class ModelLoader extends PObject {
   }
 
   /**
+   * Returns a list with the entities loaded into the application.
+   *
+   * @return {Array<string>}
+   */
+  get entities() {
+    return Object.keys(this._models);
+  }
+
+  /**
    * Returns the model from the application.
    *
    * @param {string} entity The model name to be fetched.
