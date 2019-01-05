@@ -56,8 +56,7 @@ class DBModule extends PUse {
     engine.use(ModelLoader);
 
     if (engine.cli) {
-      engine.commands.register("db:migrate", require("./commands/Migrations"));
-      engine.commands.register("db:seeds", require("./commands/Seeds"));
+      engine.commands.load(__dirname);
     }
   }
 }

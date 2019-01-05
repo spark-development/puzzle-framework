@@ -1,6 +1,6 @@
 {
   "name": "puzzle-framework",
-  "version": "1.3.5",
+  "version": "1.4.0",
   "description": "A modular framework for micro applications/services.",
   "main": "src/server.js",
   "scripts": {
@@ -8,7 +8,8 @@
     "lint": "./node_modules/.bin/eslint ./src",
     "lint-fix": "./node_modules/.bin/eslint --fix ./src",
     "bamboo-lint": "./node_modules/.bin/eslint ./src -f node_modules/eslint-bamboo-formatter/reporter.js",
-    "jsdoc": "./node_modules/.bin/jsdoc -p -c ./jsdoc.json ./src"
+    "jsdoc": "./node_modules/.bin/jsdoc -p -c ./jsdoc.json ./src",
+    "coverage": "./node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/.bin/coveralls"
   },
   "repository": {
     "type": "git",
@@ -34,23 +35,27 @@
     "jsonwebtoken": "^8.4.0",
     "lodash": "^4.17.11",
     "mysql2": "^1.6.4",
-    "puzzle-framework-lite": "^1.1.5",
-    "sequelize": "^5.0.0-0",
+    "puzzle-framework-lite": "^1.2.0",
+    "sequelize": "^5.0.0-beta.15",
     "umzug": "^2.2.0",
     "verbal-expressions": "^0.3.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "coveralls": "^3.0.2",
     "debug": "^4.1.0",
     "eslint": "^5.9.0",
     "eslint-bamboo-formatter": "0.1.1",
     "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-chai-expect": "^1.2.0",
     "eslint-plugin-import": "^2.14.0",
+    "husky": "^1.2.0",
     "ink-docstrap": "^1.3.2",
-    "istanbul": "^0.4.5",
     "jsdoc": "^3.5.5",
     "mocha": "^5.2.0",
-    "mocha-bamboo-reporter": "^1.1.1"
+    "mocha-bamboo-reporter": "^1.1.1",
+    "nyc": "^13.1.0",
+    "sinon": "^7.2.2"
   },
   "files": [
     "src",
@@ -60,5 +65,10 @@
     "doc": "docs",
     "example": "sample",
     "test": "tests"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
   }
 }

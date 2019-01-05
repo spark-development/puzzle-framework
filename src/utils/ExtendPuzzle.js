@@ -6,6 +6,7 @@ const fs = require("fs");
 const PEngine = puzzle.import("core/PEngine");
 
 const DBModule = require("../db");
+const DefaultFull = require("../defaults/config");
 
 /**
  * Extends the puzzle runtime with some options/enhancements.
@@ -22,6 +23,7 @@ class ExtendPuzzle extends PEngine {
   use(engine) {
     global.puzzleLight = false;
     engine.import = this.import;
+    engine.config.load(DefaultFull);
 
     engine.use(DBModule);
   }

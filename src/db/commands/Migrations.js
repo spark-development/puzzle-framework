@@ -31,14 +31,30 @@ class Migrations extends CLIBase {
       status: this._status
     };
 
-    const sequelize = puzzle.db;
-    const that = this;
     /**
      * The Umzug reference.
      *
-     * @property {umzug}
+     * @property {umzug|null}
      * @protected
      */
+    this._umzug = null;
+
+    this.options = {
+      module: [false, "The module for which we run the migrations", "string", ""],
+      folder: [false, "The migrations folder", "string", "Migrations"]
+    };
+
+    this._initUmzug();
+  }
+
+  _initUmzug(migrationPath = "") {
+    const sequelize = puzzle.db;
+    const that = this;
+
+    if (!this.isValid(migrationPath) || migrationPath === "") {
+      migrationPath = puzzle.config.db.migrationsPath;
+    }
+
     this._umzug = new umzug({
       storage: "sequelize",
       storageOptions: {
@@ -52,7 +68,7 @@ class Migrations extends CLIBase {
           sequelize.getQueryInterface(), // queryInterface
           sequelize.constructor, // DataTypes
         ],
-        path: path.resolve(puzzle.config.db.migrationsPath),
+        path: path.resolve(migrationPath),
         pattern: /\.js$/
       },
 
@@ -67,6 +83,13 @@ class Migrations extends CLIBase {
   }
 
   /**
+   * Displays the usage information.
+   */
+  usage() {
+    this.cli.getUsage();
+  }
+
+  /**
    * Runs the migration command.
    *
    * @param {string[]} args The command line arguments
@@ -77,11 +100,19 @@ class Migrations extends CLIBase {
       this.put.fatal("No command given");
       return;
     }
+
     const runtime = this._runtimes[args[0]];
 
     if (runtime === undefined || runtime === null) {
       this.put.fatal("Invalid argument given.");
       return;
+    }
+
+    const folder = this.isValid(options.folder) ? options.folder : "Migrations";
+
+    if (options.module !== "") {
+      const modulePath = path.join(process.cwd(), "puzzles", options.module.replace(".", "/"), folder);
+      this._initUmzug(modulePath);
     }
 
     try {
@@ -183,7 +214,10 @@ class Migrations extends CLIBase {
         this.put.info("Pending migrations:");
         this.putU.info(status.pending.trimRight() || "\t- NONE -");
 
-        return { executed, pending };
+        return {
+          executed,
+          pending
+        };
       });
   }
 
