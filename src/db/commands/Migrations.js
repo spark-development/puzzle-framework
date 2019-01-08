@@ -6,6 +6,8 @@ const umzug = require("umzug");
 
 const CLIBase = puzzle.import("cli/CLIBase");
 
+const FindPathUtil = require("../FindPathUtil");
+
 /**
  * DB Migrations class.
  *
@@ -111,7 +113,7 @@ class Migrations extends CLIBase {
     const folder = this.isValid(options.folder) ? options.folder : "Migrations";
 
     if (options.module !== "") {
-      const modulePath = path.join(process.cwd(), "puzzles", options.module.replace(".", "/"), folder);
+      const modulePath = FindPathUtil(options.module, folder);
       this._initUmzug(modulePath);
     }
 

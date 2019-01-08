@@ -5,6 +5,8 @@ const fs = require("fs");
 
 const CLIBase = puzzle.import("cli/CLIBase");
 
+const FindPathUtil = require("../FindPathUtil");
+
 /**
  * DB Seeds class.
  *
@@ -49,7 +51,7 @@ class Seeds extends CLIBase {
     const folder = this.isValid(options.folder) ? options.folder : "Seeds";
 
     if (options.module !== "") {
-      const modulePath = path.join(process.cwd(), "puzzles", options.module.replace(".", "/"), folder);
+      const modulePath = FindPathUtil(options.module, folder);
       this.seedsFolder = path.resolve(modulePath);
     }
 
