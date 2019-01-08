@@ -1,6 +1,6 @@
 "use strict";
 
-const puzzleCLI = require("puzzle-framework-lite/src/cmd");
+const puzzleCLI = require("@puzzleframework/lite/src/cmd");
 puzzleCLI.version = require("../package.json");
 puzzle.use(require("./utils/ExtendPuzzle"));
 

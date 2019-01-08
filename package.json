@@ -1,5 +1,5 @@
 {
-  "name": "puzzle-framework",
+  "name": "@puzzleframework/core",
   "version": "1.4.0",
   "description": "A modular framework for micro applications/services.",
   "main": "src/server.js",
@@ -35,7 +35,7 @@
     "jsonwebtoken": "^8.4.0",
     "lodash": "^4.17.11",
     "mysql2": "^1.6.4",
-    "puzzle-framework-lite": "^1.2.0",
+    "@puzzleframework/lite": "latest",
     "sequelize": "^5.0.0-beta.15",
     "umzug": "^2.2.0"
   },

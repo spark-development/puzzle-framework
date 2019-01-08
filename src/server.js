@@ -1,6 +1,6 @@
 "use strict";
 
-const puzzleServer = require("puzzle-framework-lite");
+const puzzleServer = require("@puzzleframework/lite");
 puzzleServer.version = require("../package.json");
 puzzle.use(require("./utils/ExtendPuzzle"));
 
