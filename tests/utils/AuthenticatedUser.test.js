@@ -3,7 +3,7 @@
 const expect = require("chai").expect;
 
 const AuthenticatedUser = require("../../src/utils/AuthenticatedUser");
-const PObject = require("puzzle-framework-lite/src/core/PObject");
+const PObject = require("@puzzleframework/lite/src/core/PObject");
 
 class User extends PObject {}
 

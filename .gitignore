@@ -195,3 +195,5 @@ mocha.json
 
 gen-docs/
 !gen-docs/.gitkeep
+
+package-lock.json

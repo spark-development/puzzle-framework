@@ -5,6 +5,8 @@ const fs = require("fs");
 
 const CLIBase = puzzle.import("cli/CLIBase");
 
+const FindPathUtil = require("../FindPathUtil");
+
 /**
  * DB Seeds class.
  *
@@ -26,6 +28,12 @@ class Seeds extends CLIBase {
      * @protected
      */
     this.seedsFolder = path.resolve(puzzle.config.db.seedsPath);
+
+    this.options = {
+      generate: [false, "Should we generate the seeds or just import them?", "boolean", false],
+      module: [false, "The module for which we run the migrations", "string", ""],
+      folder: [false, "The migrations folder", "string", "Migrations"]
+    };
   }
 
   /**
@@ -39,6 +47,14 @@ class Seeds extends CLIBase {
       this.put.fatal("No command given");
       return;
     }
+
+    const folder = this.isValid(options.folder) ? options.folder : "Seeds";
+
+    if (options.module !== "") {
+      const modulePath = FindPathUtil(options.module, folder);
+      this.seedsFolder = path.resolve(modulePath);
+    }
+
     const filesToRun = this.getFilesToRun(args[0]);
 
     if (args[0] !== "all" && options.generate) {
