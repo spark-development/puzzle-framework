@@ -16,11 +16,9 @@ const FindPathUtil = require("../FindPathUtil");
 class Seeds extends CLIBase {
   /**
    * Constructor of the CLI migration command.
-   *
-   * @param {engine} engine The engine reference.
    */
-  constructor(engine) {
-    super(engine, "db:seeds");
+  constructor() {
+    super("db:seeds");
     /**
      * Path to the seeds folder.
      *
