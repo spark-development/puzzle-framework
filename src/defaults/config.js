@@ -29,5 +29,12 @@ module.exports = Object.assign(liteConfig, {
      * @var {string}
      */
     seedsPath: "./db/seeds",
+
+    /**
+     * Timezone where the server runs.
+     *
+     * @var {string}
+     */
+    timezone: "Europe/Bucharest"
   }
 });
