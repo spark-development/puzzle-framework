@@ -1,7 +1,6 @@
 "use strict";
 
-const Joi = require("joi-i18n");
-const fs = require("fs");
+const Joi = require("@hapi/joi");
 const path = require("path");
 
 const PObject = puzzle.import("core/PObject");
@@ -18,6 +17,14 @@ class ModelLoader extends PObject {
      * @private
      */
     this._models = {};
+
+    /**
+     * A list with all the validator languages elements available in the application.
+     *
+     * @property {Object}
+     * @private
+     */
+    this._validatorLanguages = {};
   }
 
   /**
@@ -36,8 +43,19 @@ class ModelLoader extends PObject {
       .languages
       .forEach((language) => {
         const filePath = path.join(localesPath, `${language}.joi.js`);
-        Joi.addLocaleData(language, fs.existsSync(filePath) ? require(filePath) : {});
+        this._validatorLanguages[language] = require(filePath);
       });
+  }
+
+  /**
+   * Returns the validator messages in the desired language.
+   *
+   * @return {Object}
+   */
+  get joiLanguage() {
+    return this.isValid(this._validatorLanguages[puzzle.i18n.locale])
+      ? this._validatorLanguages[puzzle.i18n.locale]
+      : {};
   }
 
   /**
