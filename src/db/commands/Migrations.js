@@ -41,10 +41,23 @@ class Migrations extends CLIBase {
       return;
     }
 
+    const runtime = args.shift();
+
+    if (!this.isValid(runtime)) {
+      this.put.fatal("No command given!");
+      return;
+    }
+
+    const folder = this.isValid(options.folder) ? options.folder : "Migrations";
+
+    if (options.module === true) {
+      options.module = args.pop();
+    }
+
     try {
       const migrationRunner = new MigrationRunner(this.put);
       migrationRunner.disableFileLogging();
-      await migrationRunner.run(args, options);
+      await migrationRunner.run(runtime, options.module, folder);
     } catch (err) {
       this.done(1);
     }

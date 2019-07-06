@@ -4,12 +4,12 @@
   "description": "A modular framework for micro applications/services.",
   "main": "src/server.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --exit tests/**/*.test.js",
-    "lint": "./node_modules/.bin/eslint ./src",
-    "lint-fix": "./node_modules/.bin/eslint --fix ./src",
-    "bamboo-lint": "./node_modules/.bin/eslint ./src -f node_modules/eslint-bamboo-formatter/reporter.js",
-    "jsdoc": "./node_modules/.bin/jsdoc -p -c ./jsdoc.json ./src",
-    "coverage": "./node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/.bin/coveralls"
+    "test": "NODE_ENV=test nyc mocha tests/**/*.test.js --exit --reporter spec --timeout 5000",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint --fix ./src",
+    "lint:bamboo": "eslint ./src -f node_modules/eslint-bamboo-formatter/reporter.js",
+    "jsdoc": "jsdoc -p -c ./jsdoc.json ./src",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -30,12 +30,12 @@
   "homepage": "https://puzzle.spark-dev.ro/",
   "dependencies": {
     "@hapi/joi": "^15.1.0",
-    "@puzzleframework/lite": "^1.5.0",
+    "@puzzleframework/lite": "^1.5.1",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.11",
     "mysql2": "^1.6.5",
-    "sequelize": "^5.8.12",
+    "sequelize": "^5.9.4",
     "umzug": "^2.2.0"
   },
   "devDependencies": {
@@ -44,7 +44,7 @@
     "debug": "^4.1.0",
     "eslint": "^5.16.0",
     "eslint-bamboo-formatter": "0.1.1",
-    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-airbnb-base": "^13.2.0",
     "eslint-plugin-chai-expect": "^1.2.0",
     "eslint-plugin-import": "^2.18.0",
     "husky": "^1.2.0",

@@ -197,3 +197,4 @@ gen-docs/
 !gen-docs/.gitkeep
 
 package-lock.json
+.nyc_output/

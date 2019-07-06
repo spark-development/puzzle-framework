@@ -16,8 +16,9 @@ class MigrationRunner extends PRunner {
     /**
      * What this command should perform.
      *
-     * @property {Object}
      * @protected
+     *
+     * @property {Object}
      */
     this._runtimes = {
       up: this._migrateUp,
@@ -29,37 +30,43 @@ class MigrationRunner extends PRunner {
     /**
      * The Umzug reference.
      *
-     * @property {umzug|null}
      * @protected
+     *
+     * @property {umzug|null}
      */
     this._umzug = null;
   }
 
-  async run(args, options) {
-    const runtime = this._runtimes[args[0]];
+  /**
+   * Task runner entry point.
+   *
+   * @async
+   *
+   * @param {string} whatToRun What has to be ran.
+   * @param {string} module For which module we run the migrations.
+   * @param {string} folder In which folder we look for the migrations.
+   */
+  async run(whatToRun, module, folder) {
+    const runtime = this._runtimes[whatToRun];
 
     if (!this.isValid(runtime)) {
-      this.put.fatal(`Unable to find command ${args[0]}`);
+      this.log.error(`Unable to find command ${whatToRun}`);
       return;
     }
 
-    const folder = this.isValid(options.folder) ? options.folder : "Migrations";
+    folder = this.isValid(folder) ? folder : "Migrations";
 
-    if (options.module === true) {
-      options.module = args[args.length - 1];
-    }
-
-    if (options.module !== "") {
-      this.initUmzug(options.module, FindPathUtil(options.module, folder));
+    if (module !== "") {
+      this.initUmzug(module, FindPathUtil(module, folder));
     } else {
       this.initUmzug();
     }
 
     try {
       await runtime.apply(this);
-      this.log.info(`${args[0].toUpperCase()} DONE`);
+      this.log.info(`${whatToRun.toUpperCase()} DONE`);
     } catch (err) {
-      this.log.error(`${args[0].toUpperCase()} ERROR`);
+      this.log.error(`${whatToRun.toUpperCase()} ERROR`);
       if (err !== null && err !== undefined) {
         this.log.error(err);
       }
@@ -69,6 +76,9 @@ class MigrationRunner extends PRunner {
 
   /**
    * Initialization of the Umzug migration engine.
+   *
+   * @param {string} [module=""] The module for which we run the migrations.
+   * @param {string} [migrationPath=""] The path to migrations that we want to run.
    */
   initUmzug(module = "", migrationPath = "") {
     const sequelize = puzzle.db;
