@@ -20,7 +20,7 @@ class MigrationStorage extends Storage {
   logMigration(migrationName) {
     return this.model
       .sync()
-      .then(Model => Model.create({
+      .then((Model) => Model.create({
         name: migrationName,
         module: this.module,
       }));
@@ -35,7 +35,7 @@ class MigrationStorage extends Storage {
   unlogMigration(migrationName) {
     return this.model
       .sync()
-      .then(Model => Model.destroy({
+      .then((Model) => Model.destroy({
         where: {
           name: migrationName,
           module: this.module,
@@ -51,8 +51,8 @@ class MigrationStorage extends Storage {
   executed() {
     return this.model
       .sync()
-      .then(Model => Model.findAll({ order: [["id", "ASC"]] }))
-      .then(migrations => migrations.map(migration => migration.name));
+      .then((Model) => Model.findAll({ order: [["id", "ASC"]] }))
+      .then((migrations) => migrations.map((migration) => migration.name));
   }
 }
 

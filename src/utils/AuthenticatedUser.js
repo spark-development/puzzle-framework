@@ -12,4 +12,4 @@ const _ = require("lodash");
  *
  * @return {boolean}
  */
-module.exports = user => user !== null && user !== undefined && _.isObject(user) && user.constructor.name === "User";
+module.exports = (user) => user !== null && user !== undefined && _.isObject(user) && user.constructor.name === "User";
