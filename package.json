@@ -1,6 +1,6 @@
 {
   "name": "@puzzleframework/core",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "description": "A modular framework for micro applications/services.",
   "main": "src/server.js",
   "scripts": {

@@ -40,7 +40,7 @@ class DBModule extends PUse {
       host: dbConfig.host,
       port: dbConfig.port,
       dialect: dbConfig.driver,
-      timezone: puzzle.isValid(dbConfig.timezone) ? dbConfig.timezone : "local",
+      timezone: puzzle.isValid(dbConfig.timezone) ? dbConfig.timezone : undefined,
       logging: (message) => {
         puzzle.log.debug(message);
       }
