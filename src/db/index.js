@@ -36,15 +36,18 @@ class DBModule extends PUse {
    */
   static getDBConnection(env) {
     const dbConfig = puzzle.config.db[env];
-    return new Sequelize(dbConfig.database, dbConfig.user, dbConfig.password, {
+    const options = {
       host: dbConfig.host,
       port: dbConfig.port,
       dialect: dbConfig.driver,
-      timezone: puzzle.isValid(dbConfig.timezone) ? dbConfig.timezone : undefined,
       logging: (message) => {
         puzzle.log.debug(message);
       }
-    });
+    };
+    if (puzzle.isValid(dbConfig.timezone)) {
+      options.timezone = dbConfig.timezone;
+    }
+    return new Sequelize(dbConfig.database, dbConfig.user, dbConfig.password, options);
   }
 
   /**
